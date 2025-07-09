@@ -15,7 +15,7 @@
                 Tutorial</h3>
             @auth
                 <div>
-                <a href="{{ route('logout') }}" class="btn btn-danger btn-sm my-2">
+                <a href="/logout" class="btn btn-danger btn-sm my-2">
                     <i class="bi bi-plus-circle"></i> Logout</a>
                 </div>
             @endauth
