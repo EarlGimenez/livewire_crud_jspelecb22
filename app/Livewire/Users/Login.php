@@ -13,7 +13,7 @@ class Login extends Component
     public function login()
     {
         $this->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|exists:users,name',
             'password' => 'required|string|min:8',
         ]);
 
