@@ -6,7 +6,7 @@
                         Product Information
                     </div>
                     <div class="float-end">
-                        <a href="/" wire:navigate class="btn btn-primary btn-sm"  wire:navigate>&larr; Back</a>
+                        <a href="/" wire:navigate class="btn btn-primary btn-sm">&larr; Back</a>
                     </div>
                 </div>
                 <div class="card-body">

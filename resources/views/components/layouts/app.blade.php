@@ -7,6 +7,7 @@
         <title>{{ $title ?? 'Page Title' }}</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrapicons@1.11.1/font/bootstrap-icons.css">
+        @livewireStyles
 
     </head>
     <body>
@@ -15,7 +16,7 @@
                 Tutorial</h3>
             @auth
                 <div>
-                <a href="/logout" class="btn btn-danger btn-sm my-2">
+                <a href="/logout" wire:navigate class="btn btn-danger btn-sm my-2">
                     <i class="bi bi-plus-circle"></i> Logout</a>
                 </div>
             @endauth
@@ -29,5 +30,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    @livewireScripts
     </body>
 </html>

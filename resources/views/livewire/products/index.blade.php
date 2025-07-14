@@ -34,9 +34,9 @@
                                     <form wire:submit="delete({{ $product->id }})">
                                         @csrf
                                         <a href="{{ route('livewire.show', $product->id) }}"
-                                            class="btn btn-warning btn-sm"><i class="bi bieye"></i> Show</a>
+                                            wire:navigate class="btn btn-warning btn-sm"><i class="bi bieye"></i> Show</a>
                                         <a href="{{ route('livewire.edit', $product->id) }}"
-                                            class="btn btn-primary btn-sm"><i class="bi bipencil-square"></i> Edit</a>
+                                            wire:navigate class="btn btn-primary btn-sm"><i class="bi bipencil-square"></i> Edit</a>
                                         <button type="submit" class="btn btn-danger btn-sm"
                                             onclick="return confirm('Do you want to delete this product?');"><i
                                                 class="bi bi-trash"></i> Delete</button>
