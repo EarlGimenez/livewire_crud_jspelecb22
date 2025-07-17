@@ -31,7 +31,7 @@
                                 <td>{{ $product->quantity }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>
-                                    <form wire:submit="delete({{ $product->id }})">
+                                    <form wire:submit.prevent="delete({{ $product->id }})">
                                         @csrf
                                         <a href="{{ route('livewire.show', $product->id) }}"
                                             wire:navigate class="btn btn-warning btn-sm"><i class="bi bieye"></i> Show</a>

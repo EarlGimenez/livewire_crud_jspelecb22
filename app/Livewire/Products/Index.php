@@ -15,7 +15,8 @@ class Index extends Component
         
         Product::find($this->productId)->delete();
     
-         return redirect()->route('livewire.index')->with('success', 'Product deleted successfully.');
+        session()->flash('success', 'Product deleted successfully.');
+        $this->redirect(route('livewire.index'), navigate: true);
     }
     public function render()
     {

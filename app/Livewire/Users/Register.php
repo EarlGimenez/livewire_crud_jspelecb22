@@ -24,7 +24,8 @@ class Register extends Component
             'password' => bcrypt($this->password),
         ]);
 
-        return redirect()->route('register')->with('success', 'Registration successful.');
+        session()->flash('success', 'Registration successful.');
+        $this->redirect(route('register'), navigate: true);
     }
 
     public function render()

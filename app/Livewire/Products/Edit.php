@@ -6,7 +6,7 @@ use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class Edit extends Component
 {
@@ -27,7 +27,6 @@ class Edit extends Component
         $this->name = $product->name;
         $this->price = $product->price;
         $this->description = $product->description;
-        $this->image = $product->fileUrl ? null : $product->fileUrl;
     }
     public function save()
     {
@@ -37,9 +36,17 @@ class Edit extends Component
             'quantity' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:1000',
+            'image' => 'nullable|image|max:10240'
         ]);
 
-        $imageUrl = $this->image ? $this->image->storePublicly('products', 'public') : $this->product->fileUrl;
+        $imageUrl = $this->product->fileUrl;
+        if ($this->image) {
+            // Delete old image if it exists
+            if ($this->product->fileUrl) {
+                Storage::disk('public')->delete($this->product->fileUrl);
+            }
+            $imageUrl = $this->image->store('products', 'public');
+        }
 
         $this->product->update([
             'code' => $this->code,
@@ -47,10 +54,11 @@ class Edit extends Component
             'quantity' => $this->quantity,
             'price' => $this->price,
             'description' => $this->description,
-            'fileUrl'=> Storage::url($imageUrl),
+            'fileUrl' => $imageUrl,
         ]);
 
-        return redirect()->route('livewire.index')->with('success', 'Product updated successfully.');
+        session()->flash('success', 'Product updated successfully.');
+        $this->redirect(route('livewire.index'), navigate: true);
     }
     public function render()
     {

@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                <form wire:submit="save" method="post" enctype="multipart/form-data">
+                <form wire:submit.prevent="save" method="post" enctype="multipart/form-data">
                 @csrf
                         @method("PUT")
                         <div class="mb-3 row">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="quantity" class="col-md-4 colform-label text-md-end text-start">Quantity</label>
+                            <label for="quantity" class="col-md-4 col-form-label text-md-end text-start">Quantity</label>
                             <div class="col-md-6">
                                 <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" wire:model="quantity" value="{{ $product->quantity }}">
                                 @error('quantity')
@@ -57,7 +57,7 @@
                         </div>
                         <div class="mb-3 row">
                             <label for="description"
-                                class="col-md-4 colform-label text-md-end text-start">Description</label>
+                                class="col-md-4 col-form-label text-md-end text-start">Description</label>
                             <div class="col-md-6">
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="description"
                                 wire:model="description">{{ $product->description }}</textarea>
@@ -69,11 +69,13 @@
 
                         <!-- file uploads -->
                         <div class="mb-3 row">
-                            <label for="image" class="col-md-4 colform-label text-md-end text-start">Upload
+                            <label for="image" class="col-md-4 col-form-label text-md-end text-start">Upload
                                 Image</label>
                             <div class="col-md-6">
                                 <input type="file" class="form-control" wire:model="image" id="image">
-                                <img style="max-width:250px;max-height:250px;" src="{{ asset($product->fileUrl) }}" alt="">
+                                @if($product->fileUrl)
+                                    <img style="max-width:250px;max-height:250px;" src="{{ Storage::url($product->fileUrl) }}" alt="Product Image">
+                                @endif
                                 @error('image')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -81,7 +83,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <input type="submit" class="col-md-3 offsetmd-5 btn btn-primary" value="Update">
+                            <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update">
                         </div>
                     </form>
                 </div>

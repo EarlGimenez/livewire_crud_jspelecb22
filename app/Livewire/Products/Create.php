@@ -26,10 +26,13 @@ class Create extends Component
             'quantity' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:1000',
-            'image' => 'nullable|image'
+            'image' => 'nullable|image|max:10240'
         ]);
 
-        $imageUrl = $this->image ? $this->image->store('products', 'public') : null;
+        $imageUrl = null;
+        if ($this->image) {
+            $imageUrl = $this->image->store('products', 'public');
+        }
 
         Product::create([
             'code' => $this->code,
@@ -37,10 +40,11 @@ class Create extends Component
             'quantity' => $this->quantity,
             'price' => $this->price,
             'description' => $this->description,
-            'fileUrl' => Storage::url($imageUrl)
+            'fileUrl' => $imageUrl,
         ]);
 
-        return redirect()->route('livewire.index')->with('success', 'Product created successfully.');
+        session()->flash('success', 'Product created successfully.');
+        $this->redirect(route('livewire.index'), navigate: true);
     }
     public function render()
     {

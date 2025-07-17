@@ -19,9 +19,9 @@ class Login extends Component
 
         if (Auth::attempt(['name' => $this->name, 'password' => $this->password])) {
             session()->flash('success', 'Login successful.');
-            return redirect()->route('livewire.index');
+            $this->redirect(route('livewire.index'), navigate: true);
         } else {
-            return back()->withErrors(['name' => 'Invalid credentials.']);
+            $this->addError('name', 'Invalid credentials.');
         }
     }
     public function render()

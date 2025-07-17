@@ -3,7 +3,7 @@
 
         <div class="col-md-6">
             <h1 class="text-center mb-4">Login</h1>
-            <form wire:submit="login" method="post">
+            <form wire:submit.prevent="login" method="post">
                 @csrf
                 @session('success')
                     <div class="alert alert-success">{{ $value }}</div>
